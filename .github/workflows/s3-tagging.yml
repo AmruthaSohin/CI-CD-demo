@@ -26,4 +26,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}  # Optional if using temporary credentials
         run: |
-          python tag_s3.py
+          python src/tag_s3.py
