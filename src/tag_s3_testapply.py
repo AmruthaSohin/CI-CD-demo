@@ -128,7 +128,7 @@ class S3BucketTagger:
             )
             results[bucket_name] = success
 
-        successful = sum(results.values)
+        successful = sum(results.values())
         total = len(results)
         self.logger.info(
             f"Activity Completed: {successful}/{total}"
