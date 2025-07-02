@@ -143,7 +143,7 @@ class S3BucketTagger:
             existing_tags = self.get_bucket_tags(bucket_name)
 
             if not existing_tags:
-                self.logger.info(f"No tags to remove from:" {bucket_name})
+                self.logger.info(f"No tags to remove from: {bucket_name}")
                 return True
             
             remaining_tags = {
