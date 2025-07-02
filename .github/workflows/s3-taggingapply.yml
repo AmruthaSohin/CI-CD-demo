@@ -1,4 +1,4 @@
-name: Tag S3 Buckets
+name: Tag S3 Buckets New Apply
 
 on:
   workflow_dispatch:  # Run manually from GitHub UI
