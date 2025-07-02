@@ -2,7 +2,7 @@ import logging
 from typing import Any
 
 import boto3
-from botocore.exception import ClientError, NoCredentialsError
+from botocore.exceptions import ClientError, NoCredentialsError
 
 class S3BucketTagger:
     def __init__(self, region_name: str = "us-east-1", profile_name: str | None = None) -> None:
