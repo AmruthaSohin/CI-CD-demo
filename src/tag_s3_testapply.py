@@ -178,8 +178,8 @@ class S3BucketTagger:
 def main() -> None:
     tagger = S3BucketTagger()
     standard_tags = {
-        "Env": "prod"
-        "owner": "abc@gmail.com"
+        "Env": "prod",
+        "owner": "abc@gmail.com",
         "Project": "xyz"
     }
     
