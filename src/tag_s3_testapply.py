@@ -178,7 +178,7 @@ class S3BucketTagger:
 def main() -> None:
     tagger = S3BucketTagger()
     standard_tags = {
-        "Env": "prod",
+        "Env": "Dev",
         "owner": "abc@gmail.com",
         "Project": "xyz"
     }
@@ -190,7 +190,7 @@ def main() -> None:
         
     
     print("\n===Dry run===")
-    tagger.tag_all_bucket(standard_tags, dry_run=True)
+    tagger.tag_all_bucket(standard_tags, dry_run=False)
 
 if __name__ == "__main__":
     main()
