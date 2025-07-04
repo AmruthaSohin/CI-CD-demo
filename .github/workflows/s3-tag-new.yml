@@ -24,7 +24,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::<YOUR_ACCOUNT_ID>:role/GitHubActionsOIDCRole
+          role-to-assume: arn:aws:iam::061051234712:role/GitHubActionsOIDCRole
           aws-region: us-east-1
       # - name: Tag S3 buckets
       #   env:
