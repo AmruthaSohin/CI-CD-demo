@@ -5,22 +5,24 @@ import boto3
 from botocore.exceptions import ClientError, NoCredentialsError
 
 class S3BucketTagger:
-    def __init__(self, region_name: str = "us-east-1", profile_name: str | None = None) -> None:
-        
-        try:
-            if profile_name:
-                session = boto3.Session(profile_name=profile_name)
-                self.s3_client = session.client("s3", region_name=region_name)
-            else:
-                self.s3_client = boto3.client("s3", region_name=region_name)
-            self.region_name = region_name
-            self.profile_name = profile_name
-            self._setup_logging()
-        except NoCredentialsError as e:
-            self.logger.error(
-                "AWS credentials not found"
-            )
-            raise e
+    def __init__(self, region_name: str = "us-east-1") -> None:
+
+        self.s3_client = boto3.client("s3", region_name=region_name)
+        self.region_name = region_name
+        self._setup_logging()
+        # try:
+        #     if profile_name:
+        #         session = boto3.Session(profile_name=profile_name)
+        #         self.s3_client = session.client("s3", region_name=region_name)
+        #     else:
+        #         self.s3_client = boto3.client("s3", region_name=region_name)
+        #     self.region_name = region_name
+        #     self._setup_logging()
+        # except NoCredentialsError as e:
+        #     self.logger.error(
+        #         "AWS credentials not found"
+        #     )
+        #     raise e
         
     def _setup_logging(self) -> None:
 
