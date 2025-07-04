@@ -2,7 +2,9 @@ name: Tag S3 Buckets new backup
 
 on:
   workflow_dispatch:  # Run manually from GitHub UI
-
+permissions:
+  id-token: write
+  contents: read
 jobs:
   tag-buckets:
     runs-on: ubuntu-latest
@@ -19,12 +21,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::<YOUR_ACCOUNT_ID>:role/GitHubActionsOIDCRole
+          aws-region: us-east-1
+      # - name: Tag S3 buckets
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_REGION: ${{ secrets.AWS_REGION }}
+      #     AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}  # Optional if using temporary credentials
       - name: Tag S3 buckets
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}  # Optional if using temporary credentials
         run: |
           python src/tag_s3_new.py
