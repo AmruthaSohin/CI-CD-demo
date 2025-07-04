@@ -2,7 +2,9 @@ name: Tag S3 Buckets New Apply
 
 on:
   workflow_dispatch:  # Run manually from GitHub UI
-
+permissions:
+  id-token: write
+  contents: read
 jobs:
   tag-buckets:
     runs-on: ubuntu-latest
@@ -21,10 +23,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Tag S3 buckets
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}  # Optional if using temporary credentials
+        # env:
+        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   AWS_REGION: ${{ secrets.AWS_REGION }}
+        #   AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}  # Optional if using temporary credentials
         run: |
           python src/tag_s3_testapply.py
