@@ -135,20 +135,28 @@ class EventBridgeTagger:
         if not taggable_rules:
             print("No taggable rule found")
             return
-        
-
         is_ci = os.getenv("CI") == "true"
-
         if not is_ci:
             response = input(f"\nProceed with tagging {len(taggable_rules)} ? (yes/No)").strip().lower()
-        # else:
-        #     print("Tagging aborted by user.")
+            if response != 'yes':
+                print("Tagging cancelled")
+                return
+        else:
+            print("CI environment detected — auto-approving tagging.")
 
-       # response = input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower()
 
-        if response != 'yes':
-            print("Tagging cancelled")
-            return
+       #  is_ci = os.getenv("CI") == "true"
+
+       #  if not is_ci:
+       #      response = input(f"\nProceed with tagging {len(taggable_rules)} ? (yes/No)").strip().lower()
+       #  # else:
+       #  #     print("Tagging aborted by user.")
+
+       # # response = input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower()
+
+       #  if response != 'yes':
+       #      print("Tagging cancelled")
+       #      return
         
         success_count = 0
         for rule in taggable_rules:
