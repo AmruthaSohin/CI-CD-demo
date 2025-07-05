@@ -1,4 +1,4 @@
-name: Tag Eventbridge Buckets through tag_eventbridge file
+name: Tag Eventbridge through tag_eventbridge file
 
 on:
   workflow_dispatch:  # Run manually from GitHub UI
