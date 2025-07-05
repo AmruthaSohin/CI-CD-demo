@@ -29,4 +29,4 @@ jobs:
      
       - name: Tag S3 buckets
         run: |
-          python src/tag_eventbridge_original.py
+          python src/tag_eventbridge.py
