@@ -48,14 +48,14 @@ class S3BucketTagger:
             self.logger.error(f"Failed to fetch tags for bucket {bucket_name}: {e}")
             raise
 
-    def backup_tags(self, bucket_name: str, tags: dict[str, str]) -> None:
-        filename = f"{bucket_name}_tags_backup.json"
-        try:
-            with open(filename, "w") as f:
-                json.dump(tags, f, indent=4)
-            self.logger.info(f"Backed up existing tags for {bucket_name} to {filename}")
-        except Exception as e:
-            self.logger.error(f"Failed to back up tags for {bucket_name}: {e}")
+    # def backup_tags(self, bucket_name: str, tags: dict[str, str]) -> None:
+    #     filename = f"{bucket_name}_tags_backup.json"
+    #     try:
+    #         with open(filename, "w") as f:
+    #             json.dump(tags, f, indent=4)
+    #         self.logger.info(f"Backed up existing tags for {bucket_name} to {filename}")
+    #     except Exception as e:
+    #         self.logger.error(f"Failed to back up tags for {bucket_name}: {e}")
 
     def apply_tags_to_bucket(
         self,
@@ -71,7 +71,7 @@ class S3BucketTagger:
                 self.logger.info(f"Filtered out {removed_count} empty tag values")
 
             existing_tags = self.get_bucket_tags(bucket_name)
-            self.backup_tags(bucket_name, existing_tags)  # 🔐 Backup step
+            # self.backup_tags(bucket_name, existing_tags)  # 🔐 Backup step
 
             if merge_existing:
                 final_tags = {**existing_tags, **filtered_tags}
@@ -115,7 +115,9 @@ class S3BucketTagger:
         results = {}
 
         filtered_buckets = [
-            bucket for bucket in buckets if not bucket_filter or bucket_filter in bucket["Name"]
+            bucket 
+            for bucket in buckets 
+            if not bucket_filter or bucket_filter in bucket["Name"]
         ]
 
         if bucket_filter:
@@ -178,7 +180,9 @@ class S3BucketTagger:
             return False
 
 def main() -> None:
-    tagger = S3BucketTagger(profile_name="profile_name")  # 🧑‍💻 Use dev profile if needed
+   # tagger = S3BucketTagger(profile_name="profile_name")  # 🧑‍💻 Use dev profile if needed
+    tagger = S3BucketTagger()
+   
     standard_tags = {
         "Env": "dev",
         "owner": "devowner@example.com",
