@@ -1,4 +1,4 @@
-name: Tag S3 Buckets through s3_bucket_tagger file
+name: Tag S3 Buckets with backup of old tags
 
 on:
   workflow_dispatch:  # Run manually from GitHub UI
