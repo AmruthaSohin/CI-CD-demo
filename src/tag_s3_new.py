@@ -178,7 +178,7 @@ class S3BucketTagger:
             return False
 
 def main() -> None:
-    tagger = S3BucketTagger(profile_name=profile_name)  # 🧑‍💻 Use dev profile if needed
+    tagger = S3BucketTagger(profile_name="profile_name")  # 🧑‍💻 Use dev profile if needed
     standard_tags = {
         "Env": "dev",
         "owner": "devowner@example.com",
