@@ -10,7 +10,7 @@ from botocore.exceptions import ClientError, BotoCoreError
 
 class EventBridgeTagger:
     def __init__(self, session: boto3.session):
-        self.events_client = session.client('event')
+        self.events_client = session.client('events')
         self.session = session
 
     def _wait_with_jitter(self, base_delay: float = 0.5) -> None:
