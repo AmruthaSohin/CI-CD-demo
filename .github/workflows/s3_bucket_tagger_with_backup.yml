@@ -34,7 +34,7 @@ jobs:
           python src/s3_bucket_tagger_with_backup.py
 
       - name: Upload tag backup artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tag-backups
           path: '*.json'   # Or specify the exact backup filename
