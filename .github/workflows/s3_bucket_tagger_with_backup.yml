@@ -1,0 +1,34 @@
+name: Tag S3 Buckets through s3_bucket_tagger file
+
+on:
+  workflow_dispatch:  # Run manually from GitHub UI
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  tag-buckets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Dump GitHub Context
+        run: echo "${{ toJson(github) }}"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::061051234712:role/GitHubActionsOIDCRole
+          aws-region: us-east-1
+     
+      - name: Tag S3 buckets
+        run: |
+          python src/s3_bucket_tagger_with_backup.py
