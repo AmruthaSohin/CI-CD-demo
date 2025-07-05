@@ -154,7 +154,7 @@ class EventBridgeTagger:
 
 
 def main():
-    PROFILE = 'prd'
+   # PROFILE = 'prd'
     REGION = "us-east-1"
 
     tags = {
@@ -165,7 +165,9 @@ def main():
 
     name_patterns = ["test", "nex", "project"]
 
-    session = boto3.Session(profile_name=PROFILE, region_name=REGION)
+    # session = boto3.Session(profile_name=PROFILE, region_name=REGION)
+    session = boto3.Session(profile_name=profile_name, region_name=REGION)
+    # session = boto3.Session(region_name=REGION)
     tagger = EventBridgeTagger(session)
 
     tagger.tag_rules(name_patterns, tags)
