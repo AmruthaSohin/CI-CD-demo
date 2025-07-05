@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+      - name: Dump GitHub Context
+        run: echo "${{ toJson(github) }}"
 
       - name: Set up Python
         uses: actions/setup-python@v5
