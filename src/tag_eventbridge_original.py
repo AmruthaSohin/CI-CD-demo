@@ -17,7 +17,7 @@ class EventBridgeTagger:
         jitter = random.uniform(0.1, 0.5)
         time.sleep(base_delay + jitter)
     
-    def list_rules_by_pattern(self, name_patterns: Lis[str]) -> List[Dict[str, Any]]:
+    def list_rules_by_pattern(self, name_patterns: List[str]) -> List[Dict[str, Any]]:
         try:
             matched_rules = []
             paginator = self.events_client.get_paginator('list_rules')
