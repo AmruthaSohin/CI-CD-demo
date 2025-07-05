@@ -163,7 +163,7 @@ def main():
         "owner": "pqr"
     }
 
-    name_patterns = ["dmb", "nexus", "project"]
+    name_patterns = ["test", "nex", "project"]
 
     session = boto3.Session(profile_name=PROFILE, region_name=REGION)
     tagger = EventBridgeTagger(session)
