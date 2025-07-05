@@ -79,7 +79,7 @@ class EventBridgeTagger:
                 has_changes = True
         
         if not has_changes:
-            print(No changes required)
+            print("No changes required")
 
     def apply_tags(self, rule_arn: str, rule_name: str, tags: Dict[str, str]) -> bool:
         try:
