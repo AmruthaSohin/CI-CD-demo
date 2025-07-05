@@ -140,9 +140,9 @@ class EventBridgeTagger:
         is_ci = os.getenv("CI") == "true"
 
         if is_ci or input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower() == "yes":
-            self.apply_tags(taggable_rules, tags)
-        else:
-            print("Tagging aborted by user.")
+            self.apply_tags(taggable_rules,rule['arn'], rule['name'], tags)
+        # else:
+        #     print("Tagging aborted by user.")
 
        # response = input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower()
 
