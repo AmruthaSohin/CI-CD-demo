@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import time
 import random
-
+import os
 import logging
 from typing import Dict, List, Any
 import json
@@ -10,14 +10,14 @@ from botocore.exceptions import ClientError, BotoCoreError
 
 class EventBridgeTagger:
     def __init__(self, session: boto3.session):
-        self.events_client = session.client('event')
+        self.events_client = session.client('events')
         self.session = session
 
     def _wait_with_jitter(self, base_delay: float = 0.5) -> None:
         jitter = random.uniform(0.1, 0.5)
         time.sleep(base_delay + jitter)
     
-    def list_rules_by_pattern(self, name_patterns: Lis[str]) -> List[Dict[str, Any]]:
+    def list_rules_by_pattern(self, name_patterns: List[str]) -> List[Dict[str, Any]]:
         try:
             matched_rules = []
             paginator = self.events_client.get_paginator('list_rules')
@@ -79,7 +79,7 @@ class EventBridgeTagger:
                 has_changes = True
         
         if not has_changes:
-            print(No changes required)
+            print("No changes required")
 
     def apply_tags(self, rule_arn: str, rule_name: str, tags: Dict[str, str]) -> bool:
         try:
@@ -136,7 +136,15 @@ class EventBridgeTagger:
             print("No taggable rule found")
             return
         
-        response = input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower()
+
+        is_ci = os.getenv("CI") == "true"
+
+        if is_ci or input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower() == "yes":
+            self.apply_tags(taggable_rules, tags)
+        else:
+            print("Tagging aborted by user.")
+
+       # response = input(f"\nProceed with tagging {len(taggable_rules)} ?(yes/No)").strip().lower()
 
         if response != 'yes':
             print("Tagging cancelled")
@@ -154,7 +162,7 @@ class EventBridgeTagger:
 
 
 def main():
-    PROFILE = 'prd'
+   # PROFILE = 'prd'
     REGION = "us-east-1"
 
     tags = {
@@ -163,9 +171,11 @@ def main():
         "owner": "pqr"
     }
 
-    name_patterns = ["dmb", "nexus", "project"]
+    name_patterns = ["test", "nex", "project"]
 
-    session = boto3.Session(profile_name=PROFILE, region_name=REGION)
+    # session = boto3.Session(profile_name=PROFILE, region_name=REGION)
+    # session = boto3.Session(profile_name=profile_name, region_name=REGION)
+    session = boto3.Session(region_name=REGION)
     tagger = EventBridgeTagger(session)
 
     tagger.tag_rules(name_patterns, tags)
