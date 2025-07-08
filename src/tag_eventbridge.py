@@ -174,9 +174,9 @@ def main():
     REGION = "us-east-1"
 
     tags = {
-        "Project": "abc",
-        "Env": "prd",
-        "owner": "pqr"
+        "Project": "abc234",
+        "Env": "prd123",
+        "owner": "pqr345"
     }
 
     name_patterns = ["test", "nex", "project"]
