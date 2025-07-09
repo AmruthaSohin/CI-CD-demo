@@ -128,9 +128,15 @@ class EventBridgeTagger:
 
         for rule in rules:
             current_tags = rule['current_tags']
-            merged_tags = {**current_tags, **tags}
-            tagging_supported = rule.get('tagging_supported', True)
+            merged_tags = current_tags.copy()
+            for k,v in tags.items():
+                merged_tags[k] = v
             self.show_tag_diff(rule['name'], current_tags, merged_tags, tagging_supported)
+        # for rule in rules:
+        #     current_tags = rule['current_tags']
+        #     merged_tags = {**current_tags, **tags}
+        #     tagging_supported = rule.get('tagging_supported', True)
+        #     self.show_tag_diff(rule['name'], current_tags, merged_tags, tagging_supported)
 
         if not taggable_rules:
             print("No taggable rule found")
